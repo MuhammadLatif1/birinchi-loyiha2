@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aziz — Men haqimda</title>
+  <meta name="description" content="Aziz haqida qisqa ma'lumot, qiziqishlar va Telegram havolasi.">
+  <style>
+    :root {
+      --bg: #0f1020;
+      --bg-accent-1: #6d5dfc;
+      --bg-accent-2: #00c2ff;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f2f3f8;
+      --muted: #a9adc4;
+      --chip: rgba(255, 255, 255, 0.08);
+      --telegram: #229ed9;
+      --radius: 22px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f3f4fb;
+        --card: rgba(255, 255, 255, 0.75);
+        --card-border: rgba(20, 20, 60, 0.08);
+        --text: #16172b;
+        --muted: #5b5f7a;
+        --chip: rgba(109, 93, 252, 0.08);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Fon uchun yumshoq rangli dog'lar */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      z-index: -1;
+      animation: float 14s ease-in-out infinite alternate;
+    }
+    body::before { background: var(--bg-accent-1); top: -120px; left: -120px; }
+    body::after  { background: var(--bg-accent-2); bottom: -140px; right: -120px; animation-delay: -7s; }
+
+    @keyframes float {
+      to { transform: translate(60px, 40px) scale(1.1); }
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      padding: 40px 32px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      animation: appear 0.7s ease both;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .avatar {
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 44px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--bg-accent-1), var(--bg-accent-2));
+      box-shadow: 0 10px 30px rgba(109, 93, 252, 0.45);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--bg-accent-1), var(--bg-accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .about {
+      margin: 24px 0 28px;
+      font-size: 1.02rem;
+    }
+
+    h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .interests {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .interests li {
+      padding: 18px 8px;
+      background: var(--chip);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .interests li:hover {
+      transform: translateY(-4px);
+      border-color: var(--bg-accent-1);
+    }
+
+    .interests .icon {
+      display: block;
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+
+    .telegram {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 24px;
+      border-radius: 14px;
+      background: var(--telegram);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(34, 158, 217, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .telegram:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(34, 158, 217, 0.55);
+    }
+
+    .telegram:focus-visible {
+      outline: 3px solid var(--bg-accent-2);
+      outline-offset: 3px;
+    }
+
+    .telegram svg { width: 22px; height: 22px; fill: currentColor; }
+
+    footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Telefon ekranlari uchun */
+    @media (max-width: 420px) {
+      .card { padding: 32px 20px; }
+      .avatar { width: 96px; height: 96px; font-size: 38px; }
+      .interests { gap: 8px; }
+      .interests li { padding: 14px 4px; font-size: 0.82rem; }
+      .interests .icon { font-size: 1.6rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, body::before, body::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="avatar" aria-hidden="true">A</div>
+
+    <h1>Aziz</h1>
+    <p class="subtitle">Men haqimda</p>
+
+    <p class="about">
+      Salom! Mening ismim Aziz. Men yangi narsalarni o‘rganishni yaxshi ko‘raman,
+      bo‘sh vaqtimda kod yozaman, kitob o‘qiyman va do‘stlarim bilan o‘yin o‘ynayman.
+      Maqsadim — yaxshi dasturchi bo‘lish va foydali loyihalar yaratish.
+    </p>
+
+    <h2>Qiziqishlarim</h2>
+    <ul class="interests">
+      <li><span class="icon" aria-hidden="true">📚</span>Kitob</li>
+      <li><span class="icon" aria-hidden="true">💻</span>Dasturlash</li>
+      <li><span class="icon" aria-hidden="true">🎮</span>Kompyuter o‘yinlari</li>
+    </ul>
+
+    <a class="telegram" href="https://t.me/Latif00100" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9.78 15.27 9.4 20.6c.54 0 .78-.23 1.06-.51l2.55-2.44 5.28 3.87c.97.53 1.65.25 1.91-.89l3.46-16.24c.31-1.43-.51-1.99-1.45-1.64L1.9 10.6c-1.39.54-1.37 1.32-.24 1.67l5.2 1.62 12.08-7.6c.57-.38 1.09-.17.66.21z"/>
+      </svg>
+      Telegram orqali yozing
+    </a>
+
+    <footer>© 2026 Aziz</footer>
+  </main>
+</body>
+</html>
